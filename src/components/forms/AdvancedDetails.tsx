@@ -4,8 +4,12 @@ import FormField from '../FormField'
 import details from '@/data/detail'
 import { useState } from 'react'
 
-export default function AdvancedDetails() {
-  const [formData, setFormData] = useState(details);
+type Props = {
+  formData: any;
+  setFormData: (data: any) => void;
+};
+
+export default function AdvancedDetails({ formData, setFormData }: Props) {
   const [isOnEmployer, setIsOnEmployer] = useState(false);
 
   return (

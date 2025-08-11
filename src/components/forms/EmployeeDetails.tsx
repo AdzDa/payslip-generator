@@ -4,8 +4,12 @@ import FormField from '../FormField'
 import { useState } from 'react'
 import details from '@/data/detail'
 
-export default function EmployeeDetails() {
-  const [formData, setFormData] = useState(details);
+type Props = {
+  formData: any;
+  setFormData: (data: any) => void;
+};
+
+export default function EmployeeDetails({ formData, setFormData }: Props) {
 
   return (
     <Section 

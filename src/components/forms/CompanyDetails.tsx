@@ -5,8 +5,12 @@ import Section from '../Section';
 import details from '@/data/detail';
 import { bankList } from '@/data/bankList';
 
-export default function CompanyDetails() {
-  const [formData, setFormData] = useState(details);
+type Props = {
+  formData: any;
+  setFormData: (data: any) => void;
+};
+
+export default function CompanyDetails({ formData, setFormData }: Props) {
 
   return (
     <Section 

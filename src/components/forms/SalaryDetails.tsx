@@ -6,10 +6,14 @@ import { useState } from 'react'
 import details from '@/data/detail'
 import { CircleMinus } from 'lucide-react';
 
-export default function SalaryDetails() {
- const [formData, setFormData] = useState(details);
- const [isOn, setIsOn] = useState(false);
- 
+type Props = {
+  formData: any;
+  setFormData: (data: any) => void;
+};
+
+export default function SalaryDetails({ formData, setFormData }: Props) {
+  const [isOn, setIsOn] = useState(false);
+
   type Row = { id: string; title: string; amount: string };
   const [credits, setCredits] = useState<Row[]>([]);
   const [deductions, setDeductions] = useState<Row[]>([]);

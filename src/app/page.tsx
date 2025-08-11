@@ -4,10 +4,19 @@ import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { navigation } from "@/data/navigation";
+import details from "@/data/detail";
+import settings from "@/data/settings";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState(navigation.sections[0].id);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [formData, setFormData] = useState(details);
+  const [settingData, setSettingData] = useState(settings);
+
+  const handleResetAll = () => {
+    setFormData(details);
+    setSettingData(settings);
+  };
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({
@@ -42,7 +51,7 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen">
       <Header />
-      <div className="flex flex-1 px-[50px] py-[10px] space-x-[20px] overflow-hidden">
+      <div className="flex flex-1 px-[50px] pt-[20px] pb-[80px] space-x-[20px] overflow-hidden">
         
         {/* Scrollable Form */}
         <div
@@ -52,7 +61,7 @@ export default function Home() {
           <form className="w-full">
             {navigation.sections.map(({ id, component: Component }) => (
               <section key={id} id={id} className="w-full flex flex-col pb-[20px]">
-                <Component />
+                <Component formData={formData} setFormData={setFormData} settingData={settingData} setSettingData={setSettingData} />
               </section>
             ))}
           </form>
@@ -73,7 +82,7 @@ export default function Home() {
           ))}
         </nav>
       </div>
-      <Footer />
+      <Footer handleResetAll={handleResetAll} />
     </div>
   );
 }

@@ -6,8 +6,12 @@ import { useState } from 'react'
 import {payrollDetails} from '@/data/payrollDetails'
 import { bankList } from '@/data/bankList'
 
-export default function PayslipDetails() {
-  const [formData, setFormData] = useState(details);
+type Props = {
+  formData: any;
+  setFormData: (data: any) => void;
+};
+
+export default function PayslipDetails({ formData, setFormData }: Props) {
 
   return (
     <Section 

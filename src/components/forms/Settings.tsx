@@ -4,8 +4,13 @@ import settings from '@/data/settings';
 import Section from '@/components/Section';
 import FormField from '../FormField';
 
-export default function Settings() {
-  const [settingData, setSettingData] = useState(settings);
+type Props = {
+  settingData: any;
+  setSettingData: (data: any) => void;
+};
+
+export default function Settings({ settingData, setSettingData }: Props) {
+  // const [settingData, setSettingData] = useState(settings);
 
   return (
     <Section 
