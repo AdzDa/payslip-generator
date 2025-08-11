@@ -202,3 +202,10 @@ input:focus, select:focus, textarea:focus {
     @apply bg-background text-foreground;
   }
 }
+
+.scrollbar-hidden {
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
