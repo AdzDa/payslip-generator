@@ -3,6 +3,7 @@ import React from 'react'
 interface SectionProps {
   title: string;
   children: React.ReactNode;
+  // id: string;
 }
 
 export default function Section({title, children}: SectionProps) {

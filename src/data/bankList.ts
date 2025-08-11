@@ -13,5 +13,5 @@ export const bankList = [
   { label: "Affin Bank", value: "affin" },
   { label: "Standard Chartered Bank Malaysia", value: "standardchartered" },
   { label: "UOB Malaysia", value: "uob" },
-    { label: "Touch N Go", value: "tng" }
+  { label: "Touch N Go", value: "tng" }
 ];
