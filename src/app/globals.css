@@ -74,6 +74,14 @@ body {
   border: solid 1px var(--bg-primary);
 }
 
+.border-blue-left {
+  border-left: 2px var(--bg-primary);
+}
+
+.border-secondary {
+  border: var(--text-secondary);
+}
+
 .btn-primary {
   background: var(--bg-primary);
   border: 1px solid var(--bg-primary);

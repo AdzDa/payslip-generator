@@ -52,12 +52,13 @@ export default function Home() {
     <div className="flex flex-col h-screen">
       <Header />
       <div className="flex flex-1 px-[50px] pt-[20px] pb-[80px] space-x-[20px] overflow-hidden">
-        
         {/* Scrollable Form */}
         <div
           ref={scrollContainerRef}
-          className="flex-1 overflow-y-auto pr-4 scrollbar-hidden"
+          className="flex-1 overflow-y-auto pr-4 space-y-[20px] scrollbar-hidden"
         >
+          <p className="font-bold">Payroll Generator</p>
+           {/* Form Sections */}
           <form className="w-full">
             {navigation.sections.map(({ id, component: Component }) => (
               <section key={id} id={id} className="w-full flex flex-col pb-[20px]">
@@ -68,13 +69,15 @@ export default function Home() {
         </div>
 
         {/* Fixed/Sticky Nav */}
-        <nav className="min-w-[215px] flex flex-col space-y-4 sticky top-[20px] self-start">
+        <nav className=" min-w-[215px] flex flex-col sticky top-[20px] self-start">
           {navigation.sections.map((section) => (
             <button
               key={section.id}
               onClick={() => scrollToSection(section.id)}
-              className={`transition-colors px-2 py-1 rounded ${
-                activeSection === section.id ? "bg-blue-500 text-white" : "bg-gray-400"
+              className={`transition-colors text-left h-[45px] px-[10px] !border-l-2 border-secondary ${
+                activeSection === section.id
+                  ? "text-blue !border-l-4 !border-blue-500"
+                  : "text-secondary !border-l-2 border-secondary"
               }`}
             >
               {section.label}
