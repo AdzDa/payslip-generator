@@ -1,114 +1,168 @@
 import { StyleSheet } from "@react-pdf/renderer";
 
-const blue = "#1e5aa6";
-const gray = "#f5f5f5";
+const blue = "#1d4ed8"; // blue-700
+const lightBlue = "#2563eb"; // blue-600
+const grayBg = "#e5e7eb"; // gray-200
+const grayText = "#374151"; // gray-700
 const borderGray = "#d9d9d9";
+const wrapperGray = "#9ca3af"; // gray-400
 
 const styles = StyleSheet.create({
+  // ===== Page Wrapper =====
   page: {
-    padding: 20,
-    fontSize: 10,
+    backgroundColor: wrapperGray,
+    // padding: 20,
+    minHeight: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     fontFamily: "Helvetica",
-    color: "#000",
+    fontSize: 10,
+    // color: "#000",
   },
+
+  // ===== PDF Container =====
+  pdfContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 20,
+    backgroundColor: "#fff",
+    width: 595,
+    height: 842,
+    padding: 40,
+    flexGrow: 1,
+  },
+
+  // page: {
+  // backgroundColor: "#fff", // Make the page itself white
+  // padding: 0,              // No extra padding here
+  // fontFamily: "Helvetica",
+  // fontSize: 10,
+  // color: "#000",
+  // },
+
+  // pdfContainer: {
+  //   backgroundColor: "#fff",
+  //   width: "100%",           // Use full width
+  //   padding: 40,
+  //   flexDirection: "column",
+  //   gap: 20,
+  // },
+
 
   // ===== Company Header =====
-  companySection: {
+  companyHeader: {
     flexDirection: "row",
+    gap: 20,
+  },
+  companyLogo: {
+    width: 100,
+    height: 100,
+    backgroundColor: grayBg,
     alignItems: "center",
-    marginBottom: 10,
-    paddingBottom: 6,
-    borderBottomWidth: 1,
-    borderBottomColor: borderGray,
-  },
-  companyName: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: blue,
-  },
-  bankText: { fontWeight: "bold" },
-
-  // ===== Employee Info =====
-  employeeSection: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 6,
-    marginBottom: 10,
-    paddingBottom: 6,
-    // borderBottomWidth: 1,
-    // borderBottomColor: borderGray,
-  },
-  infoText: { marginBottom: 2, fontSize: 9 },
-
-  // Nett Pay box
-  netPayBox: {
-    // borderWidth: 1,
-    // borderColor: borderGray,
-    padding: 6,
-    // backgroundColor: gray,
-    marginTop: 4,
-    alignItems: "center",
-  },
-  netPayLabel: { fontSize: 8, marginBottom: 2 },
-  netPayValue: { fontSize: 10, fontWeight: "bold", color: blue },
-
-  // ===== Tables =====
-  tableSection: {
-    marginTop: 10,
-    marginBottom: 10,
-    // borderWidth: 1,
-    // borderColor: borderGray,
+    justifyContent: "center",
     borderRadius: 4.5,
   },
-  tableHeader: {
-    backgroundColor: blue,
-    flexDirection: "row",
+
+  companyDetails: {
+    width: 360,
+    flexDirection: "column",
+    gap: 4,
   },
-  headerCell: {
+
+  // Text sizes
+  text14: { fontSize: 14, fontWeight: "bold" },
+  text12: { fontSize: 12 },
+  text10: { fontSize: 10 },
+  textGray: { color: grayText },
+
+  // ===== Employee Section =====
+  employeeSection: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  employeeInfo: {
     flex: 1,
-    padding: 5,
+    flexDirection: "column",
+    gap: 10,
+  },
+  employeeCards: {
+    padding: 10,
+    borderRadius: 4.5,
+    backgroundColor: grayBg,
+    flexDirection: "row",
+    gap: 14,
+  },
+  employeeCardHalf: {
+    width: "50%",
+    flexDirection: "column",
+    gap: 2,
+  },
+
+  // ===== Period & Nett Pay =====
+  periodPay: {
+    width: 133,
+    flexDirection: "column",
+    gap: 20,
+  },
+  periodBox: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  nettPayBox: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: lightBlue,
+    borderRadius: 4.5,
+    textAlign: "center",
+    flexDirection: "column",
+    gap: 2,
+    fontWeight: "bold",
+    alignItems: "center",
+    // height:70,
+  },
+  nettBlue: { color: lightBlue },
+
+  // ===== Section Headers =====
+  sectionSpace:{
+    flexDirection: "column",
+    gap: 10,
+  },
+
+  sectionHeader: {
+    flexDirection: "row",
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: blue,
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 9,
+    fontSize: 10,
   },
-  row: {
+  sectionHeaderText: {
+    margin: 0,
+  },
+  colTwoThirds: { width: "66.66%" },
+  colOneThird: { width: "33.33%", textAlign: "right" },
+
+  // ===== Section Rows =====
+  sectionRows: {
+    paddingHorizontal: 10,
+    flexDirection: "column",
+  },
+  sectionRow: {
     flexDirection: "row",
-    // borderTopWidth: 1,
-    // borderTopColor: borderGray,
   },
-  cell: {
-    flex: 1,
-    padding: 5,
-    fontSize: 9,
+  sectionRowText: {
+    margin: 0,
+    fontSize: 10,
   },
-  totalRow: {
-    flexDirection: "row",
-    // backgroundColor: gray,
-    fontWeight: "bold",
-  },
+  fontBold: { fontWeight: "bold" },
 
   // ===== Footer =====
-  footer: {
-    marginTop: 20,
+  footerText: {
     textAlign: "center",
-    fontSize: 8,
-    color: "#777",
-  },
-
-   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 10,
-  },
-  EmployeeLeft: {
-    flex: 1,
-    paddingRight: 10,
-  },
-  EmployeeRight: {
-    flex: 1,
-    paddingLeft: 10,
-    alignItems: "flex-end",
+    fontSize: 10,
   },
 });
 

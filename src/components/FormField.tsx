@@ -4,7 +4,7 @@
 // import { Calendar } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Calendar22 } from './Calendar';
-// import { Calendar } from "@/components/ui/calendar"; // ✅ shadcn calendar
+// import { Calendar } from "@/components/ui/calendar";
 // import { DayPicker } from 'react-day-picker';
 // import 'react-day-picker/dist/style.css';
 import details from '@/data/detail';
@@ -187,20 +187,35 @@ export default function FormField({
           accept="image/*" 
           className="px-4 py-2 border border-primary rounded-lg"
           // onChange={onChange}
+          // onChange={(e) => {
+          //   const file = e.target.files?.[0];
+          //   if (file) {
+          //     const reader = new FileReader();
+          //     reader.onload = (ev) => {
+          //       // Pass the base64 string to the parent via onChange
+          //       const fakeEvent = {
+          //         target: { name, value: ev.target?.result as string },
+          //       } as unknown as React.ChangeEvent<HTMLInputElement>;
+          //       onChange?.(fakeEvent);
+          //     };
+          //     reader.readAsDataURL(file);
+          //   }
+          // }}
           onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              const reader = new FileReader();
-              reader.onload = (ev) => {
-                // Pass the base64 string to the parent via onChange
-                const fakeEvent = {
-                  target: { name, value: ev.target?.result as string },
-                } as unknown as React.ChangeEvent<HTMLInputElement>;
-                onChange?.(fakeEvent);
-              };
-              reader.readAsDataURL(file);
-            }
-          }}
+          const { name, value } = e.target;
+          if (name.startsWith("company.")) {
+            const key = name.split(".")[1];
+            setFormData(prev => ({
+              ...prev,
+              company: {
+                ...prev.company,
+                [key]: value
+              }
+            }));
+          } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+          }
+        }}
         />
       )}
     </div>

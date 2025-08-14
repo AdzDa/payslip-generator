@@ -5,9 +5,26 @@ import Section from '../Section';
 import details from '@/data/detail';
 import { bankList } from '@/data/bankList';
 
+// type Props = {
+//   formData: any;
+//   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+// };
+
+interface Company {
+  registrationNo: string;
+  companyName: string;
+  address: string;
+  bankName: string;
+  logoImage: string | null;
+}
+
+export interface FormData {
+  company: Company;
+}
+
 type Props = {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 };
 
 export default function CompanyDetails({ formData, setFormData }: Props) {
@@ -92,6 +109,16 @@ export default function CompanyDetails({ formData, setFormData }: Props) {
         name="companyLogo"
         placeholder="Upload the company's image/ logo"
         type="file"
+        value={formData.company.logoImage || ""}
+        onChange={(e) => {
+            setFormData((prev) => ({
+            ...prev,
+            company: {
+                ...prev.company,
+                logoImage: e.target.value, // base64 string
+            },
+            }));
+        }}
         />
     </Section>
   )
