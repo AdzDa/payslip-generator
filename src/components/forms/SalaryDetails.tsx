@@ -2,7 +2,7 @@ import React from 'react'
 import Section from '../Section'
 import FormField from '../FormField'
 import { payrollDetails } from '@/data/payrollDetails'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import details from '@/data/detail'
 import { CircleMinus } from 'lucide-react';
 
@@ -62,6 +62,28 @@ export default function SalaryDetails({ formData, setFormData }: Props) {
        setDeductions(newDeductions);
      }
    };
+
+   // Sync credits to formData
+    useEffect(() => {
+    setFormData((prev: any) => ({
+        ...prev,
+        salary: {
+        ...prev.salary,
+        additionalCredits: credits,
+        },
+    }));
+    }, [credits, setFormData]);
+
+    // Sync deductions to formData
+    useEffect(() => {
+    setFormData((prev: any) => ({
+        ...prev,
+        salary: {
+        ...prev.salary,
+        deductions: deductions,
+        },
+    }));
+    }, [deductions, setFormData]);
 
   return (
     <Section 

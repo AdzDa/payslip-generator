@@ -6,16 +6,70 @@ import Footer from "@/components/Footer";
 import { navigation } from "@/data/navigation";
 import details from "@/data/detail";
 import settings from "@/data/settings";
+import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
+import PdfPayslip from '@/components/pdf/PdfPayslip';
+// import type { Details, Credit, Deduction } from "@/components/pdf/PdfPayslip";
+import type { Details, Credit, Deduction } from "@/components/pdf/dataType";
+
+// Fix: parameter type is typeof details, return type is Details
+function normalizeDetails(detailsObj: typeof details): Details {
+  return {
+    company: {
+      ...detailsObj.company,
+      logoImage: detailsObj.company.logoImage, // explicitly preserve logoImage
+    },
+    employee: { ...detailsObj.employee },
+    payroll: { ...detailsObj.payroll },
+    salary: {
+      ...detailsObj.salary,
+      basicSalary: Number(detailsObj.salary.basicSalary) || 0,
+      overtime: {
+        ...detailsObj.salary.overtime,
+        amount: Number(detailsObj.salary.overtime.amount) || 0,
+        totalHours: Number(detailsObj.salary.overtime.totalHours) || 0,
+      },
+      additionalCredits: detailsObj.salary.additionalCredits.map(
+        (c: { title: string; amount: string }) => ({
+          ...c,
+          amount: Number(c.amount) || 0,
+        })
+      ),
+      deductions: detailsObj.salary.deductions.map(
+        (d: { title: string; amount: string }) => ({
+          ...d,
+          amount: Number(d.amount) || 0,
+        })
+      ),
+    },
+    advanced: {
+      employerContributions: {
+        employerSocso: Number(detailsObj.advanced.employerContributions.employerSocso) || 0,
+        employerEpf: Number(detailsObj.advanced.employerContributions.employerEpf) || 0,
+        employerEis: Number(detailsObj.advanced.employerContributions.employerEis) || 0,
+      }
+    }
+  };
+}
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState(navigation.sections[0].id);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [formData, setFormData] = useState(details);
+  const [formData, setFormData] = useState<typeof details>(details);
   const [settingData, setSettingData] = useState(settings);
 
   const handleResetAll = () => {
     setFormData(details);
     setSettingData(settings);
+  };
+
+  // Preview PDF in new tab
+  const handlePreview = async () => {
+    const normalized = normalizeDetails(formData); 
+    console.log("Normalized data sent to PDF:", normalized);
+    const blob = await pdf(<PdfPayslip details={normalized} />).toBlob();
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+    console.log(formData.company.logoImage);
   };
 
   const scrollToSection = (id: string) => {
@@ -85,7 +139,7 @@ export default function Home() {
           ))}
         </nav>
       </div>
-      <Footer handleResetAll={handleResetAll} />
+      <Footer handleResetAll={handleResetAll} handlePreview={handlePreview} />
     </div>
   );
 }

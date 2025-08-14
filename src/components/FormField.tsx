@@ -7,6 +7,7 @@ import { Calendar22 } from './Calendar';
 // import { Calendar } from "@/components/ui/calendar"; // ✅ shadcn calendar
 // import { DayPicker } from 'react-day-picker';
 // import 'react-day-picker/dist/style.css';
+import details from '@/data/detail';
 
 export default function FormField({
   label,
@@ -30,6 +31,7 @@ export default function FormField({
   const [showModal, setShowModal] = useState(false);
   const [customValue, setCustomValue] = useState('');
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const [formData, setFormData] = useState<typeof details>(details);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === 'others') {
@@ -183,8 +185,22 @@ export default function FormField({
           placeholder={placeholder}
           type="file" 
           accept="image/*" 
-          onChange={onChange} 
           className="px-4 py-2 border border-primary rounded-lg"
+          // onChange={onChange}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = (ev) => {
+                // Pass the base64 string to the parent via onChange
+                const fakeEvent = {
+                  target: { name, value: ev.target?.result as string },
+                } as unknown as React.ChangeEvent<HTMLInputElement>;
+                onChange?.(fakeEvent);
+              };
+              reader.readAsDataURL(file);
+            }
+          }}
         />
       )}
     </div>
